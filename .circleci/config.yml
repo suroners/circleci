@@ -1,8 +1,8 @@
 version: 2
 jobs:
-  dependencies:
-    staps:
-      - run: pip install flake8==2.2.3
+#  dependencies:
+#    staps:
+#      - run: pip install flake8==2.2.3
 
   development:
     docker:
