@@ -23,4 +23,4 @@ workflows:
   version: 2
   production_and_staging:
     jobs:
-      - development
+      - production
