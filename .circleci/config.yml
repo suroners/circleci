@@ -9,10 +9,10 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Greeting
-          command: echo Hello, world.
+          name: build tests
+          command: echo build tests.
       - run:
-          name: Print the Current Time
+          name: Print the Current Time build tests
           command: date
 
   production:
@@ -27,17 +27,17 @@ jobs:
           name: Print the Current Time
           command: date
 
-#  staging:
-#    docker:
-#      - image: debian:stretch
-#    steps:
-#      - checkout
-#      - run:
-#          name: Greeting
-#          command: echo tasks for development.
-#      - run:
-#          name: Print the Current Time
-#          command: date
+  staging:
+    docker:
+      - image: debian:stretch
+    steps:
+      - checkout
+      - run:
+          name: Greeting
+          command: echo tasks for development.
+      - run:
+          name: Print the Current Time
+          command: date
 
 workflows:
   version: 2
@@ -50,9 +50,9 @@ workflows:
           filters:
             branches:
               only: master
-#      - staging:
-#        requires:
-#          - build
-#        branches:
-#          only:
-#            - development
+      - staging:
+          requires:
+            - build
+          filters:
+            branches:
+              only: development
