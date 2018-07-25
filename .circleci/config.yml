@@ -46,9 +46,10 @@ workflows:
       - production:
 #        requires:
 #          - build
-        branches:
-          only:
-            - master
+        filters:
+          branches:
+            only:
+              - master
 #      - staging:
 #        requires:
 #          - build
