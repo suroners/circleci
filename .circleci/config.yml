@@ -4,7 +4,7 @@ jobs:
 #    staps:
 #      - run: pip install flake8==2.2.3
 
-  development:
+  production:
     docker:
       - image: debian:stretch
     branches:
@@ -21,5 +21,6 @@ jobs:
 
 workflows:
   version: 2
+  production_and_staging:
     jobs:
       - development
