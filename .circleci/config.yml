@@ -48,8 +48,7 @@ workflows:
 #          - build
         filters:
           branches:
-            only:
-              - master
+            only: master
 #      - staging:
 #        requires:
 #          - build
