@@ -3,24 +3,21 @@ jobs:
 #  dependencies:
 #    staps:
 #      - run: pip install flake8==2.2.3
-#  build:
-#    docker:
-#      - image: debian:stretch
-#    steps:
-#      - checkout
-#      - run:
-#          name: Greeting
-#          command: echo Hello, world.
-#      - run:
-#          name: Print the Current Time
-#          command: date
+  build:
+    docker:
+      - image: debian:stretch
+    steps:
+      - checkout
+      - run:
+          name: Greeting
+          command: echo Hello, world.
+      - run:
+          name: Print the Current Time
+          command: date
 
   production:
     docker:
       - image: debian:stretch
-    branches:
-      only:
-        - master
     steps:
       - checkout
       - run:
@@ -46,9 +43,10 @@ workflows:
   version: 2
   production_and_staging:
     jobs:
+      - build
       - production:
-#        requires:
-#          - build
+          requires:
+            - build
           filters:
             branches:
               only: master
@@ -58,4 +56,3 @@ workflows:
 #        branches:
 #          only:
 #            - development
-#      - build
