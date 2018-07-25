@@ -3,14 +3,21 @@ jobs:
 #  dependencies:
 #    staps:
 #      - run: pip install flake8==2.2.3
-
+  build:
+    docker:
+      - image: debian:stretch
+    steps:
+      - checkout
+      - run:
+          name: build tests
+          command: echo build tests.
+      - run:
+          name: Print the Current Time build tests
+          command: date
 
   production:
     docker:
       - image: debian:stretch
-    branches:
-      only:
-        - master
     steps:
       - checkout
       - run:
@@ -23,9 +30,6 @@ jobs:
   staging:
     docker:
       - image: debian:stretch
-    branches:
-      only:
-        - development
     steps:
       - checkout
       - run:
@@ -39,5 +43,16 @@ workflows:
   version: 2
   production_and_staging:
     jobs:
-      - production
-      - staging
+      - build
+      - production:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
+      - staging:
+          requires:
+            - build
+          filters:
+            branches:
+              only: development
