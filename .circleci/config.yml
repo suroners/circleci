@@ -9,6 +9,21 @@ jobs:
       - image: debian:stretch
     branches:
       only:
+        - master
+    steps:
+      - checkout
+      - run:
+          name: Greeting
+          command: echo tasks for master.
+      - run:
+          name: Print the Current Time
+          command: date
+
+  staging:
+    docker:
+      - image: debian:stretch
+    branches:
+      only:
         - development
     steps:
       - checkout
@@ -24,3 +39,4 @@ workflows:
   production_and_staging:
     jobs:
       - production
+      - staging
