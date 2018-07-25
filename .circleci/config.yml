@@ -44,8 +44,8 @@ workflows:
   production_and_staging:
     jobs:
       - production:
-        requires:
-          - build
+#        requires:
+#          - build
         branches:
           only:
             - master
