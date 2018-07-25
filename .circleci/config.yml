@@ -18,3 +18,8 @@ jobs:
       - run:
           name: Print the Current Time
           command: date
+
+workflows:
+  version: 2
+    jobs:
+      - development
