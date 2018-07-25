@@ -1,13 +1,20 @@
 version: 2
 jobs:
-  build:
+  dependencies:
+    staps:
+      - run: pip install flake8==2.2.3
+
+  development:
     docker:
       - image: debian:stretch
+    branches:
+      only:
+        - development
     steps:
       - checkout
       - run:
           name: Greeting
-          command: echo Hello, world.
+          command: echo tasks for development.
       - run:
           name: Print the Current Time
           command: date
