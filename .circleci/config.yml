@@ -20,7 +20,7 @@ jobs:
       - run:
           name: Print the Current Time build tests
           command: date
-              timeout: 1800
+              - timeout: 1800
 
 
   production:
