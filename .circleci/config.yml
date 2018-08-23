@@ -34,10 +34,10 @@ jobs:
           command: echo "54.171.221.157	staging" >> /etc/hosts
       - run:
           name: install flake8
-          command: ls /etc
-      - run:
-          name: Run prodation.yml for stagings
-          command: ansible-playbook -u ubuntu -i "54.171.221.157," ansible/production.yml --extra-vars "version=staging_new"
+          command: ansible-playbook
+#      - run:
+#          name: Run prodation.yml for stagings
+#          command: ansible-playbook -u ubuntu -i "54.171.221.157," ansible/production.yml --extra-vars "version=staging_new"
 
   production:
     docker:
