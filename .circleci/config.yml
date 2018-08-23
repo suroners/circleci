@@ -34,7 +34,7 @@ jobs:
           command: echo "54.171.221.157	staging" >> /etc/hosts
       - run:
           name: install flake8
-          command: ansible-playbook
+          command: ansible-playbook --list-hosts
 #      - run:
 #          name: Run prodation.yml for stagings
 #          command: ansible-playbook -u ubuntu -i "54.171.221.157," ansible/production.yml --extra-vars "version=staging_new"
