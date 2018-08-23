@@ -5,24 +5,45 @@ jobs:
 #      - run: pip install flake8==2.2.3
   build:
     docker:
-      - image: debian:stretch
+      - image: rackspacedot/python27-ansible23
     steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "a5:6d:db:ae:74:c5:00:7b:a1:3b:05:e0:74:a5:a2:b1"
       - checkout
+#      - run:
+#          name: install flake8
+#          command: pip install flake8==2.2.3
+#      - run:
+#          name: instasll requirements
+#          command: pip install -r requirements.txt
+#      - run:
+#          name: install ansible
+#          command: pip install ansible==1.9.2
       - run:
           name: install flake8
-          command: pip install flake8==2.2.3
+          command: ansible-playbook
+#      - run:
+#          name: install flake8
+#          command: echo "production" >> /etc/ansible/hosts
+#      - run:
+#          name: install flake8
+#          command: echo "staging" >> /etc/ansible/hosts
+#      - run:
+#          name: install flake8
+#          command: echo "54.171.112.103	production" >> /etc/hosts
+#      - run:
+#          name: install flake8
+#          command: echo "54.171.221.157	staging" >> /etc/hosts
       - run:
-          name: instasll requirements
-          command: pip install -r requirements.txt
-      - run:
-          name: install ansible
-          command: pip install ansible==1.9.2
+          name: Run prodation.yml for stagings
+          command: ansible-playbook -u ubuntu -i "54.171.221.157," ansible/production.yml --extra-vars "version=staging_new"
 
   production:
     docker:
-      - image: debian:stretch
+      - image: rackspacedot/python27-ansible23
     steps:
-      - checkout
+#      - checkout
       - run:
           name: Run s3_backup.yml for prodaction
           command: ansible-playbook -u ubuntu -i "54.171.112.103," ansible/tools/s3_backup.yml --extra-vars "target=54.171.112.103" --extra-vars "user=ubuntu"
@@ -35,7 +56,7 @@ jobs:
 
   staging:
     docker:
-      - image: debian:stretch
+      - image: rackspacedot/python27-ansible23
     steps:
       - checkout
       - run:
@@ -61,4 +82,4 @@ workflows:
             - build
           filters:
             branches:
-              only: development
+              only: staging_new
