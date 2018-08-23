@@ -8,20 +8,15 @@ jobs:
       - image: debian:stretch
     steps:
       - checkout
-#      - run:
-#          name: install flake8
-#          command: pip install flake8==2.2.3
-#      - run:
-#          name: instasll requirements
-#          command: pip install -r requirements.txt
-#      - run:
-#          name: install ansible
-#          command: pip install ansible==1.9.2
       - run:
-          name: Print the Current Time build tests
-          command: date
-          timeout: 1800
-
+          name: install flake8
+          command: pip install flake8==2.2.3
+      - run:
+          name: instasll requirements
+          command: pip install -r requirements.txt
+      - run:
+          name: install ansible
+          command: pip install ansible==1.9.2
 
   production:
     docker:
@@ -29,11 +24,14 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Greeting
-          command: echo tasks for master.
+          name: Run s3_backup.yml for prodaction
+          command: ansible-playbook -u ubuntu -i "54.171.112.103," ansible/tools/s3_backup.yml --extra-vars "target=54.171.112.103" --extra-vars "user=ubuntu"
       - run:
-          name: Print the Current Time
-          command: date
+          name: Run prodation.yml for prodaction
+          command: ansible-playbook -u ubuntu -i "54.171.112.103," ansible/production.yml --extra-vars "version=master"
+      - run:
+          name: Run clear_cache.yml for prodaction
+          command: ansible-playbook -u ubuntu -i "54.171.112.103," ansible/clear_cache.yml --extra-vars "target=54.171.112.103"
 
   staging:
     docker:
@@ -41,11 +39,11 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Greeting
-          command: echo tasks for development.
+          name: Run prodation.yml for stagings
+          command: ansible-playbook -u ubuntu -i "54.171.221.157," ansible/production.yml --extra-vars "version=staging_new"
       - run:
-          name: Print the Current Time
-          command: date
+          name: Run clear_cache.yml for stagings
+          command: ansible-playbook -u ubuntu -i "54.171.221.157," ansible/clear_cache.yml --extra-vars "target=54.171.221.157"
 
 workflows:
   version: 2
