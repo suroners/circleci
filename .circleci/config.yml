@@ -5,7 +5,7 @@ jobs:
 #      - run: pip install flake8==2.2.3
   build:
     docker:
-      - image: ansible/ansible:ubuntu1404
+      - image: ansible/ubuntu14.04-ansible
     steps:
       - add_ssh_keys:
           fingerprints:
