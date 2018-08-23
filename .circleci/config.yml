@@ -22,7 +22,7 @@ jobs:
 #          command: pip install ansible==1.9.2
       - run:
           name: install flake8
-          command: cat /etc/ansible/hosts
+          command: cat /etc/hosts
 #      - run:
 #          name: install flake8
 #          command: echo "production" >> /etc/ansible/hosts
